@@ -1,0 +1,66 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+@model IEnumerable<Shoe.Models.DBModels.Product>
+@using Shoe.Models.DBModels;
+@using Shoe.DAO;
+<div style="text-align:left">
+    <p>
+        <button style="color:forestgreen">@Html.ActionLink("Create New", "Create")</button>
+    </p>
+</div>
+
+<div style="text-align:center">
+    <table cellpadding="30" cellspacing="10" class="table">
+        <tr>
+            <th>
+                Product name
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                Color
+            </th>
+            <th>
+                Category
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @{
+                        List<Category> list = (List < Category >) ViewData["Categorys"];
+                        Category cate = list.Find(c => c.CategoryId == item.CategoryId);
+                      }
+                    @Html.DisplayFor(modelItem => cate.CategoryName)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+
+                </td>
+            </tr>
+        }
+
+    </table>
+    </div>

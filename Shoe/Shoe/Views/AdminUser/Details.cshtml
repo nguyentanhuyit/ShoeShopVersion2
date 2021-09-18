@@ -1,0 +1,86 @@
+﻿@{ Layout = "_LayoutAdmin"; }
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+@using Shoe.Models.DBModels
+@model Shoe.Models.DBModels.User
+<button style="color:darkblue">@Html.ActionLink("Back", "Index")</button>
+<div>
+    <div style="text-align:center">
+        <h2>User details</h2>
+    </div>
+
+    <hr />
+    <table class="table">
+        <tr>
+            <td>
+                User name
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Username)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Role
+            </td>
+            <td>
+                @{Role role = (Role)ViewData["Role"];}
+                @Html.DisplayFor(model => role.RoleName)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Gender
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Gender)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Birthday
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Birthday)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Email
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Email)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Phone number
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Address
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Address)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Verified
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Verified)
+            </td>
+        </tr>
+    </table>
+</div>
+
+<p>
+    <button style="color:darkblue">@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</button>
+    <button style="color: darkblue">@Html.ActionLink("Delete", "Delete", new { id = Model.Id })</button>
+</p>

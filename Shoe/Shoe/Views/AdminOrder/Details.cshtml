@@ -1,0 +1,224 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+    .mySlides {
+        display: none;
+    }
+</style>
+@using Shoe.Models.DBModels
+@model Shoe.Models.DBModels.Order
+@{int? totalPrice = 0; }
+
+<div>
+    <button style="color:darkblue">@Html.ActionLink("Back", "Index")</button>
+    <div style="text-align:center">
+        <h2>Order details</h2>
+    </div>
+
+    <hr />
+    <table class="table">
+        <tr>
+            <th style="text-align:center">
+                Information
+            </th>
+            <th style="text-align:center">
+                Products
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <table class="table">
+                    <tr>
+                        <td>
+                            ID
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Id)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            User name
+                        </td>
+                        <td>
+                            @{User user = (User)ViewData["User"];}
+                            @Html.DisplayFor(model => user.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Receive name
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.ReceiveName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Address delivery
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.AddressDelivery)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Phone
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Phone)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Payment
+                        </td>
+                        <td>
+                            @{string payment = "";
+                                if (Model.Payment == 0)
+                                {
+                                    payment = "COD";
+                                }
+                                if (Model.Payment == 1)
+                                {
+                                    payment = "Online";
+                                }
+
+                            }
+                            @Html.DisplayFor(modelItem => payment)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Message)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Paid
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Paid)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Date created
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.DateCreated)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Status
+                        </td>
+                        <td>
+                            @{string status = "";
+                                if (Model.Status == 1)
+                                {
+                                    status = "Waiting for confirmation";
+                                }
+                                if (Model.Status == 2)
+                                {
+                                    status = "Being shipped";
+                                }
+                                if (Model.Status == 3)
+                                {
+                                    status = "Delivered";
+                                }
+                                if (Model.Status == 4)
+                                {
+                                    status = "Cancelled";
+                                }
+                            }
+                            @Html.DisplayFor(modelItem => status)
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="table">
+                    <tr>
+                        <th>
+                            Product name
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th>
+                            Quality
+                        </th>
+                    </tr>
+                    @foreach (var item in (List<Product>) ViewData["Products"])
+                    {
+                        <tr>
+                            <td>
+                                @item.ProductName
+                            </td>
+
+                            <td>
+                                @item.Price
+                            </td>
+
+                            @{
+                                List<ShoeSizeDetail> ssds = (List<ShoeSizeDetail>)ViewData["ShoeSizeDetails"];
+                                ShoeSizeDetail ssd = ssds.Find(s => s.ProductId == item.ProductId);
+                                OrderDetail odd = new shoeContext().OrderDetails.Where(o => o.OrderId == Model.Id & o.ShoeSizeId == ssd.Id).FirstOrDefault();
+                                totalPrice += item.Price * odd.Quantity;
+                            }
+                            <td>
+                                @odd.Quantity
+                            </td>
+                        </tr>
+                    }
+                <tr>
+                    <td>
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    Total price:
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => totalPrice)
+                                </td>
+                            </tr>                     
+                        </table>
+                    </td>
+                </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    
+</div>
+<div style="text-align:center">
+    <p>
+        <button style="color:darkblue">@Html.ActionLink("Update Status", "Edit", new { id = Model.Id })</button>
+
+    </p>
+    </div>
+    <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+
+        function plusDivs(n) {
+            showDivs(slideIndex += n);
+        }
+
+        function showDivs(n) {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            if (n > x.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = x.length }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            x[slideIndex - 1].style.display = "block";
+        }
+    </script>

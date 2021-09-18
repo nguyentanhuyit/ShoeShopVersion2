@@ -1,0 +1,142 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+    .mySlides {
+        display: none;
+    }
+</style>
+@using Shoe.Models.DBModels
+@model Shoe.Models.DBModels.Product
+<button style="color:darkblue">@Html.ActionLink("Back", "Index")</button>
+<div>
+    <div style="text-align:center">
+        <h2>Product details</h2>
+    </div>
+
+    <hr />
+    <table class="table">
+        <tr>
+            <td width="300">
+                <div class="w3-content w3-display-container">
+                    <img class="mySlides" src="@Url.Content(Model.MainImg)" alt="Image" height=100% width=100% />
+                    <img class="mySlides" src="@Url.Content(Model.Img1)" alt="Image" height=100% width=100% />
+                    <img class="mySlides" src="@Url.Content(Model.Img2)" alt="Image" height=100% width=100% />
+                    <img class="mySlides" src="@Url.Content(Model.Img3)" alt="Image" height=100% width=100% />
+                    <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                    <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+                </div>
+            </td>
+
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            Product name
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.ProductName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Price
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Price)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Gender
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Gender)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Color
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Color)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Categpry
+                        </td>
+                        <td>
+                            @{
+                                List<Category> list = (List<Category>)ViewData["Categorys"];
+                                Category cate = list.Find(c => c.CategoryId == Model.CategoryId);
+                            }
+                            @Html.DisplayFor(model => cate.CategoryName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Discription
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Discription)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Size
+                        </td>
+                        <td>
+                            <table class="table">
+                                <tr>
+                                    <th>Size</th>
+                                    <th>Quality</th>
+                                    <th>Quality Sale</th>
+                                </tr>
+                                @{List<ShoeSizeDetail> ssd = (List<ShoeSizeDetail>)ViewData["ShoeSizeDetails"];
+                                    ssd = ssd.OrderBy(s => s.SizeId).ToList();
+                                    foreach (var item in ssd)
+                                    {
+                                        <tr>
+                                            @{List<Size> sizes = (List<Size>)ViewData["Sizes"];
+                                                Size size = sizes.Find(s => s.SizeId == item.SizeId);
+                                            }
+                                            <td>@size.SizeName</td>
+                                            <td>@item.Quatity</td>
+                                            <td>@item.QuabtilySale</td>
+                                        </tr>
+                                    }
+                                }
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<p>
+    <button style="color:darkblue">@Html.ActionLink("Edit", "Edit", new { id = Model.ProductId })</button>
+    <button style="color: darkblue">@Html.ActionLink("Delete", "Delete", new { id = Model.ProductId })</button>
+</p>
+<script>
+    var slideIndex = 1;
+    showDivs(slideIndex);
+
+    function plusDivs(n) {
+        showDivs(slideIndex += n);
+    }
+
+    function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        if (n > x.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = x.length }
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        x[slideIndex - 1].style.display = "block";
+    }
+</script>

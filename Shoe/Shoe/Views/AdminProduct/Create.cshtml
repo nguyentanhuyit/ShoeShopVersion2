@@ -1,0 +1,183 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+@using Shoe.Models.DBModels
+<button style="color:darkblue">@Html.ActionLink("Back", "Index")</button>
+
+@using (Html.BeginForm("Create", "AdminProduct", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    List<SelectListItem> listSelect = new List<SelectListItem>();
+    foreach (var item in new shoeContext().Categories.ToList())
+    {
+        SelectListItem select = new SelectListItem { Value = item.CategoryId.ToString(), Text = item.CategoryName };
+        listSelect.Add(select);
+    }
+    <div class="form-horizontal">
+        <div style="text-align:center">
+            <h2>Create new product</h2>
+        </div>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <table class="table">
+            @model Shoe.Models.DBModels.Product
+            <tr>
+                <td>Product name</td>
+                <td>
+                    @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td>
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>
+                    @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>Color</td>
+                <td>
+                    @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>Discription</td>
+                <td>
+                    @Html.EditorFor(model => model.Discription, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Discription, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td>
+                    @Html.DropDownListFor(model => model.CategoryId, listSelect, "Choose a category")
+                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>Size</td>
+            </tr>
+
+            <tr>
+                <table class="table">
+                    <tr>
+                        <td>
+                            @Html.CheckBox("size36", false) 36
+                        </td>
+                        <td>
+                            Quality: @Html.Editor("quality36", new { size = 5 })
+                        </td>
+                        <td>
+                            Quality Sale:  @Html.Editor("qualitySale36", new { size = 5 })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.CheckBox("size37", false) 37
+                        </td>
+                        <td>
+                            Quality: @Html.Editor("quality37", 1)
+                        </td>
+                        <td>
+                            Quality Sale:  @Html.Editor("qualitySale37", 1)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.CheckBox("size38", false) 38
+                        </td>
+                        <td>
+                            Quality: @Html.Editor("quality38", 1)
+                        </td>
+                        <td>
+                            Quality Sale:  @Html.Editor("qualitySale38", 1)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.CheckBox("size39", false) 39
+                        </td>
+                        <td>
+                            Quality: @Html.Editor("quality39", 1)
+                        </td>
+                        <td>
+                            Quality Sale:  @Html.Editor("qualitySale39", 1)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.CheckBox("size40", false) 40
+                        </td>
+                        <td>
+                            Quality: @Html.Editor("quality40", 1)
+                        </td>
+                        <td>
+                            Quality Sale:  @Html.Editor("qualitySale40", 1)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.CheckBox("size41", false) 41
+                        </td>
+                        <td>
+                            Quality: @Html.Editor("quality41", 1)
+                        </td>
+                        <td>
+                            Quality Sale:  @Html.Editor("qualitySale41", 1)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.CheckBox("size42", false) 42
+                        </td>
+                        <td>
+                            Quality: @Html.Editor("quality42", 1)
+                        </td>
+                        <td>
+                            Quality Sale:  @Html.Editor("qualitySale42", 1)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.CheckBox("size43", false) 43
+                        </td>
+                        <td>
+                            Quality: @Html.Editor("quality43", 1)
+                        </td>
+                        <td>
+                            Quality Sale:  @Html.Editor("qualitySale43", 1)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.CheckBox("size44", false) 44
+                        </td>
+                        <td>
+                            Quality: @Html.Editor("quality44", 1)
+                        </td>
+                        <td>
+                            Quality Sale:  @Html.Editor("qualitySale44", 1)
+                        </td>
+                    </tr>
+                </table>
+            </tr>
+        </table>
+
+        <div class="form-group" style="text-align:center">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" style="background-color:forestgreen; color:black" />
+            </div>
+        </div>
+    </div>
+}
+

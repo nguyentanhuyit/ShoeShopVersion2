@@ -1,0 +1,138 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+@model Shoe.Models.DBModels.Product
+@using Shoe.Models.DBModels
+<button style="color:darkblue">@Html.ActionLink("Back", "Index")</button>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    List<SelectListItem> listSelect = new List<SelectListItem>();
+    foreach (var item in new shoeContext().Categories.ToList())
+    {
+        SelectListItem select = new SelectListItem { Value = item.CategoryId.ToString(), Text = item.CategoryName };
+        listSelect.Add(select);
+    }
+    <div style="text-align:center">
+        <h2>Edit product</h2>
+    </div>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ProductId)
+    <button style="color:yellow">@Html.ActionLink("Edit images", "UploadImage", new { id = Model.ProductId })</button>
+    <table class="table">
+        <tr>
+            <td>Product name</td>
+            <td>
+                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td>
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>
+                @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>Color</td>
+            <td>
+                @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>Discription</td>
+            <td>
+                @Html.EditorFor(model => model.Discription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Discription, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>Category</td>
+            <td>
+                @Html.DropDownListFor(model => model.CategoryId, listSelect, "Choose a category")
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>Size</td>
+        </tr>
+        <tr>
+                <table class="table">
+                    @{ 
+                        List<Size> listSize = new shoeContext().Sizes.ToList();
+                        foreach (var item in listSize)
+                        {
+                            <tr>
+                               <td>
+                                    @{var name = "size" + @item.SizeName;
+                                        ShoeSizeDetail ssd = new shoeContext().ShoeSizeDetails.Where(ss => ss.SizeId == item.SizeId & ss.ProductId == Model.ProductId).FirstOrDefault();}
+                                    @if (ssd == null)
+                                    {
+                                       @Html.CheckBox(name, false)
+
+                                    }
+                                    else
+                                    {
+                                        @Html.CheckBox(name, true)
+                                    }
+
+                                </td>
+                                <td>
+                                    @item.SizeName
+                                </td>
+                                <td>
+                                    Quality: 
+                                </td>
+                                <td>
+                                    @{var qualityName = "quality" + @item.SizeName;
+                                        string quality;}
+                                        @if (ssd == null)
+                                        {
+                                            quality = "0";
+                                        }
+
+                                        else { quality = ssd.Quatity.ToString(); }
+
+                                    <input type="number" id="@qualityName" name="@qualityName" value="@quality" />
+                                </td>
+                                <td>
+                                    Quality sale: 
+                                </td>
+                                <td>
+                                    @{var qualitySaleName = "qualitySale" + @item.SizeName;
+                                        string qualitySale;}
+                                     @if (ssd == null)
+                                     {
+                                         qualitySale = "0";
+                                     }
+
+                                     else { qualitySale = ssd.QuabtilySale.ToString(); }
+
+                                    <input type="number" id="@qualitySaleName" name="@qualitySaleName" value="@qualitySale" />
+                                </td>
+                            </tr>
+                        }
+                    }
+                    
+                </table>
+        </tr>
+    </table>
+    <div style="text-align:center">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" style="color:darkblue" />
+            </div>
+        </div>
+    </div>
+
+    }

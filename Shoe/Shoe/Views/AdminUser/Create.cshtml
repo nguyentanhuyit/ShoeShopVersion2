@@ -1,0 +1,122 @@
+﻿@{ Layout = "_LayoutAdmin"; }
+@using Shoe.Models.DBModels
+<button style="color:darkblue">@Html.ActionLink("Back", "Index")</button>
+
+@using (Html.BeginForm("Create", "AdminUser", FormMethod.Post, new { name = "createUser" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+        <div style="text-align:center">
+            <h2>Create new product</h2>
+        </div>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <table class="table">
+            @model Shoe.Models.DBModels.User
+            <tr>
+                <td>User name</td>
+                <td>
+                    <div class="clearfix large_form m-b-15">
+                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password", @required = "required", pattern = ".{8,}" } })
+
+                </td>
+            </tr>
+            <tr>
+                <td>Confirm password</td>
+                <td>
+                    <input class="form-control text-box single-line" type="password" id="Confirm" name="Confirm" required>
+                </td>
+            </tr>
+            <tr>
+                <td>Role</td>
+                <td>
+                    <select name="role">
+                        @{List<Role> roles = (List<Role>)ViewData["Roles"];
+                            foreach (var item in roles)
+                            {
+                                <option value=@item.Id>@item.RoleName</option>
+                            }
+                        }
+                    </select>
+                </td>
+            <tr>
+            <tr>
+                <td>Name</td>
+                <td>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+
+                </td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>
+                    @{List<SelectListItem> listSelect = new List<SelectListItem>();
+                        SelectListItem select = new SelectListItem { Value = "Nam", Text = "Nam" };
+                        listSelect.Add(select);
+                        select = new SelectListItem { Value = "Nữ", Text = "Nữ" };
+                        listSelect.Add(select);
+                        select = new SelectListItem { Value = "Khác", Text = "Khác" };
+                        listSelect.Add(select);
+                        @Html.DropDownListFor(model => model.Gender, listSelect) 
+                    }
+
+                </td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required", type="email" } })                    
+                </td>
+            </tr>
+            <tr>
+                <td>Phone number</td>
+                <td>
+
+                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @required = "required", pattern = "[0|+][0-9]{9,11}" } })
+
+                </td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+
+                </td>
+            </tr>
+            <tr>
+                <td>Verified</td>
+                <td>
+                    @Html.EditorFor(model => model.Verified, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+
+                </td>
+            </tr>
+            <tr>
+                <td>Birtday</td>
+                <td>
+                    @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control", @type = "date", @required = "required" } })
+
+                </td>
+            </tr>
+        </table>
+
+        <div class="form-group" style="text-align:center">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" style="background-color:forestgreen; color:black" />
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    .error {
+        color:red;
+</style>

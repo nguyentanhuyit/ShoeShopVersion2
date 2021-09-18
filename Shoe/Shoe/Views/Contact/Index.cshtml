@@ -1,0 +1,106 @@
+﻿
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <div class="breadcrumb__option">
+                            <a asp-controller="Home" asp-action="Index">Trang chủ</a>
+                            <span>Liên hệ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+<!-- Contact Section Begin -->
+    <section class="contact spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+                    <div class="contact__widget">
+                        <span class="icon_phone"></span>
+                        <h4>Số điện thoại</h4>
+                        <p>+01-3-8888-6868</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+                    <div class="contact__widget">
+                        <span class="icon_pin_alt"></span>
+                        <h4>Địa chỉ</h4>
+                        <p>Phường Linh Trung, thành phố Thủ Đức, Việt Nam</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+                    <div class="contact__widget">
+                        <span class="icon_clock_alt"></span>
+                        <h4>Thời gian mở cửa</h4>
+                        <p>09:00 am to 23:00 pm</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+                    <div class="contact__widget">
+                        <span class="icon_mail_alt"></span>
+                        <h4>Email</h4>
+                        <p>hello@colorlib.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section End -->
+<!-- Map Begin -->
+    <div class="map">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.2157622266145!2d106.78957711432126!3d10.871187492257226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175276398969f7b%3A0x9672b7efd0893fc4!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBOw7RuZyBMw6JtIFRwLiBI4buTIENow60gTWluaA!5e0!3m2!1svi!2s!4v1630749508032!5m2!1svi!2s"
+            height="500" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        <div class="map-inside">
+            <i class="icon_pin"></i>
+            <div class="inside-widget">
+                <h4>Thành phố Thủ Đức</h4>
+                <ul>
+                    <li>Điện thoại: +84 123456789</li>
+                    <li>Địa chỉ: phường Linh Trung, thành phố Thủ Đức, Việt Nam</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Map End -->
+<!-- Contact Form Begin -->
+    <div class="contact-form spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="contact__form__title">
+                        <h2>Để lại lời nhắn</h2>
+                    </div>
+                </div>
+            </div>
+            <div id="success" class="text-success">@ViewBag.Success</div>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, null, new { @class = "alert aleart-danger" })
+            <form accept-charset="UTF-8" asp-controller="Contact" asp-action="SendMessage" id="sendMessage" method="post" name="sendMessageForm">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <input type="text" placeholder="Tên của bạn" name="Name" required="" id="name">
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <input type="text" placeholder="Email của bạn" name="Email" required="" id="email">
+                    </div>
+                    <div class="col-lg-12 text-center">
+                        <textarea placeholder="Nhập lời nhắn" size="500"
+                                  name="Message" required="" id="message"></textarea>
+                        <button type="submit" class="site-btn">Gửi</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
+    <!-- Contact Form End -->

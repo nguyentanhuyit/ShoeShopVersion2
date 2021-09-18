@@ -1,0 +1,108 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+@model Shoe.Models.DBModels.Order
+
+<button style="color:darkblue">@Html.ActionLink("Back", "Index")</button>
+<div style="text-align:center">
+    <h2>Edit status order</h2>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    List<SelectListItem> listSelect = new List<SelectListItem>();
+    listSelect.Add(new SelectListItem { Value = "1", Text = "Waiting for confirmation" });
+    listSelect.Add(new SelectListItem { Value = "2", Text = "Being shipped" });
+    listSelect.Add(new SelectListItem { Value = "3", Text = "Delivered" });
+    listSelect.Add(new SelectListItem { Value = "4", Text = "Cancelled" });
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+    <table class="table">
+        <tr>
+            <td>Status</td>
+
+            <td>
+                @Html.DropDownListFor(model => model.Status, listSelect, "Choose a status")
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                User name
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.User.Name)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Receiver name
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.ReceiveName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Address delivery
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.AddressDelivery)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Phone
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Phone)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Payment
+            </td>
+            <td>
+                @{string payment = "";
+                    if (Model.Payment == 0)
+                    {
+                        payment = "COD";
+                    }
+                    if (Model.Payment == 1)
+                    {
+                        payment = "Online";
+                    }
+
+                }
+                @Html.DisplayFor(modelItem => payment)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Message
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Message)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Total price
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.TotalPrice)
+            </td>
+        </tr>
+    </table>
+    <div style="text-align:center">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" style="color:darkblue" />
+            </div>
+        </div>
+    </div>
+
+}

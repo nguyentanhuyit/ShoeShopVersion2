@@ -1,0 +1,76 @@
+﻿
+@{ ViewData["Title"] = "Register"; }
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <div class="breadcrumb__option">
+                        <a asp-controller="Home" asp-action="Index">Trang chủ</a>
+                        <span>Đăng ký</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div id="login" class="user_box">
+                    <div class="errorMessage">@ViewBag.Error</div>
+                    <div class="text-success">@ViewBag.Success</div>
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, null, new { @class = "alert aleart-danger" })
+                    <h1 class="account-title">Đăng Ký</h1>
+                    <form accept-charset="UTF-8" asp-controller="Account" asp-action="DoRegister" id="create_customer" method="post" name="registerForm">
+
+                        <div class="clearfix large_form m-b-15">
+                            <label class="label icon-field"><i class="fa fa-user-o" aria-hidden="true"></i></label>
+                            <input required="" type="text" value="" placeholder="Họ tên" name="Name" id="name" class="text" size="30" autofocus>
+                        </div>
+                        <div class="clearfix large_form m-b-15">
+                            <label class="label icon-field"><i class="fa fa-envelope-o" aria-hidden="true"></i></label>
+                            <input required="" type="email" value="" placeholder="Email" name="Email" id="email" class="text" size="30">
+                        </div>
+                        <div class="clearfix large_form m-b-15">
+                            <label class="label icon-field"><i class="fa fa-user" aria-hidden="true"></i></label>
+                            <input required="" type="text" value="" placeholder="Tên đăng nhập" name="Username" id="username" class="text" size="30">
+                        </div>
+                        <div class="clearfix large_form m-b-15">
+                            <label class="label icon-field"><i class="fa fa-lock" aria-hidden="true"></i></label>
+                            <input required="" type="password" value="" placeholder="Mật khẩu" name="Password" id="password" class="password text" size="30">
+                        </div>
+                        <div class="clearfix large_form m-b-15">
+                            <label class="label icon-field"><i class="fa fa-lock" aria-hidden="true"></i></label>
+                            <input required="" type="password" value="" placeholder="Nhập lại mật khẩu" name="ConfirmPassword" id="confirmPassword" class="password text" size="30">
+                        </div>
+
+                        <div class="action_bottom m-b-15">
+                            <input class="btn btn-signin" type="submit" value="Đăng ký">
+                        </div>
+                        <div class="req_pass text-center">
+                            <a asp-controller="Account" asp-action="Login" title="Đăng nhập">Đã có tài khoản? Đăng nhập</a>
+                        </div>
+                    </form>
+                    <div class="face-btn" id="btn-facebook-login">
+                        <img src="//theme.hstatic.net/1000230642/1000679613/14/fb-btn.png?v=1056" alt="google login - bitis">
+                        <span>Đăng ký bằng Facebook</span>
+                    </div>
+                    <div class="google-btn" id="btn-google-login">
+                        <img src="//theme.hstatic.net/1000230642/1000679613/14/google-btn.png?v=1056" alt="google login - bitis">
+                        <span>Đăng ký bằng Google</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+

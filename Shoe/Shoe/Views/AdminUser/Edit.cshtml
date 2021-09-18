@@ -1,0 +1,64 @@
+﻿@{ Layout = "_LayoutAdmin"; }
+@model Shoe.Models.DBModels.User
+@using Shoe.Models.DBModels
+<button style="color:darkblue">@Html.ActionLink("Back", "Index")</button>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div style="text-align:center">
+        <h2>Edit User</h2>
+    </div>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    <table class="table">
+        <tr>
+            <td>Role</td>
+            <td>
+                <select name="role">
+                    @{
+                        List<Role> roles = (List<Role>)ViewData["Roles"];
+                        foreach (var item in roles)
+                        {
+                            <option value=@item.Id>@item.RoleName</option>
+                        }
+                    }
+                </select>
+            </td>
+        <tr>
+            <td>
+                User name
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Username)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Email
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Email)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Address
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Address)
+            </td>
+        </tr>
+
+    </table>
+    <div style="text-align:center">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" style="color:darkblue" />
+            </div>
+        </div>
+    </div>
+
+}

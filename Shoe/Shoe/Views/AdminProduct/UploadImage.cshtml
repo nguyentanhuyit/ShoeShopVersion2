@@ -1,0 +1,59 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+<button style="color:darkblue">@Html.ActionLink("Back", "Index")</button>
+@{
+    ViewBag.Title = "www.compilemode.com";
+}
+
+@using (Html.BeginForm("UploadImage", "AdminProduct", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <input type="hidden" name="id" value="@ViewBag.id" />
+    <div class="form-group">
+        <label class="control-label col-md-2">Main image</label>
+        <div class="col-md-10">
+            <input class = "form-control" type="file" name="main_img" />
+        </div>
+    </div>
+    <div class="form-group">
+       <label class="control-label col-md-2">Image 1</label>
+       <div class="col-md-10">
+           <input class="form-control" type="file" name="file1" />
+          
+       </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Image 2</label>
+        <div class="col-md-10">
+            <input class="form-control" type="file" name="file2" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Image 3</label>
+        <div class="col-md-10">
+            <input class="form-control" type="file" name="file3" />
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Upload" class="btn btn-primary" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10 text-success">
+            @ViewBag.FileStatus
+        </div>
+    </div>
+</div>
+}
+<script src="~/admin/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/admin/Scripts/jquery.validate.min.js"></script>
+<script src="~/admin/Scripts/jquery.validate.unobtrusive.min.js"></script>

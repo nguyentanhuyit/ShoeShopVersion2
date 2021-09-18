@@ -1,0 +1,85 @@
+﻿@{ Layout = "_LayoutAdmin"; }
+@using Shoe.Models.DBModels
+@model Shoe.Models.DBModels.User
+
+
+<h3>Are you sure?</h3>
+<div>
+    <table class="table">
+        <tr>
+            <td>
+                User name
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Username)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Role
+            </td>
+            <td>
+                @{Role role = (Role)ViewData["Role"];}
+                @Html.DisplayFor(model => role.RoleName)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Gender
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Gender)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Birthday
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Birthday)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Email
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Email)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Phone number
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Address
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Address)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Verified
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Verified)
+            </td>
+        </tr>
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" style="color:red" />
+            <button class="btn btn-default">@Html.ActionLink("Cancel", "Index")</button>
+        </div>
+
+    }
+</div>

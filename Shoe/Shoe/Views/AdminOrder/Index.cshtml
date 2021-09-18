@@ -1,0 +1,92 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+@model IEnumerable<Shoe.Models.DBModels.Order>
+
+<table class="table">
+    <tr>
+        <th>
+            Receiver name
+        </th>
+        <th>
+            Address delivery
+        </th>
+        <th>
+            Phone
+        </th>
+        <th>
+            Total price
+        </th>
+        <th>
+            Payment
+        </th>
+        <th>
+            Message
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ReceiveName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AddressDelivery)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Phone)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TotalPrice)
+    </td>
+    <td>
+        @{string payment = "";
+            if (item.Payment == 0)
+            {
+                payment = "COD";
+            }
+            if (item.Payment == 1)
+            {
+                payment = "Online";
+            }
+
+        }
+        @Html.DisplayFor(modelItem => payment)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Message)
+    </td>
+    <td>
+        @{string status = "";
+            if (item.Status == 1)
+            {
+                status = "Waiting for confirmation";
+            }
+            if (item.Status == 2)
+            {
+                status = "Being shipped";
+            }
+            if (item.Status == 3)
+            {
+                status = "Delivered";
+            }
+            if (item.Status == 4)
+            {
+                status = "Cancelled";
+            }
+        }
+        @Html.DisplayFor(modelItem => status)
+    </td>
+
+    <td>
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        @Html.ActionLink("Update Status","Edit", new { id = item.Id })
+    </td>
+</tr>
+}
+
+</table>
